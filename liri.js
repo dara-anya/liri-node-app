@@ -26,14 +26,53 @@ switch(process.argv[2]){
 
 function bandsInTownAPI(){
     console.log("It looks like you wand to search a band.");
+    var nodeArgs = process.argv;
+    var artistName = "";
+
+    // Loop through all the words in the node argument
+    // And do a little for-loop magic to handle the inclusion of "+"s
+    for (var i = 3; i < nodeArgs.length; i++) {
+
+        if (i > 3 && i < nodeArgs.length) {
+            artistName = artistName + "+" + nodeArgs[i];
+        }
+        else {
+            artistName += nodeArgs[i];
+        }
+    }
+    // Querying the bandsintown api for the selected artist, the ?app_id parameter is required, but can equal anything
+    var queryUrl = "https://rest.bandsintown.com/artists/" + artistName + "?app_id=codingbootcamp";
+    // This line is just to help us debug against the actual URL.
+    console.log(queryUrl);
+    axios.get(queryUrl).then(
+        function(response) {
+            console.log("Title: " + response);
+            
+        }
+    );
 }
 function spotifyAPI(){
     console.log("It looks like you want to search a song.");
 }
 function omdbAPI(){
     console.log("It looks like you want to search a movie.");
-    // Grab the movieName which will always be the third node argument.
-    var movieName = process.argv[3];
+    // Store all of the arguments after the 3rd in an array
+    var nodeArgs = process.argv;
+    // Create an empty variable for holding the movie name
+    var movieName = "";
+
+    // Loop through all the words in the node argument
+    // And do a little for-loop magic to handle the inclusion of "+"s
+    for (var i = 3; i < nodeArgs.length; i++) {
+
+        if (i > 3 && i < nodeArgs.length) {
+            movieName = movieName + "+" + nodeArgs[i];
+        }
+        else {
+            movieName += nodeArgs[i];
+
+        }
+    }
     // Then run a request with axios to the OMDB API with the movie specified
     var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
     // This line is just to help us debug against the actual URL.
