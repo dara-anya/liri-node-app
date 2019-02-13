@@ -7,6 +7,8 @@ require("dotenv").config();
 // Include the axios npm package (Don't forget to run "npm install axios" in this folder first!)
 var axios = require("axios");
 
+var moment = require("moment");
+
 switch(process.argv[2]){
     case "concert-this":
         bandsInTownAPI();
@@ -41,19 +43,27 @@ function bandsInTownAPI(){
         }
     }
     // Querying the bandsintown api for the selected artist, the ?app_id parameter is required, but can equal anything
-    var queryUrl = "https://rest.bandsintown.com/artists/" + artistName + "?app_id=codingbootcamp";
+    var queryUrl = "https://rest.bandsintown.com/artists/" + artistName + "/events?app_id=codingbootcamp";
     // This line is just to help us debug against the actual URL.
     console.log(queryUrl);
     axios.get(queryUrl).then(
         function(response) {
-            console.log("Title: " + response);
-            
+            console.log(response.data[0]);
+            console.log("Name of venue: " + response.data[0].venue.name);
+            console.log("Venue location: " + response.data[0].venue.city + ", " + response.data[0].venue.country);
+            var rawDate = response.data[0].datetime;
+            var formattedDate = moment(rawDate).format('MM/DD/YYYY')
+            console.log("Date of Event: " + formattedDate);   
         }
     );
 }
+
+
 function spotifyAPI(){
     console.log("It looks like you want to search a song.");
 }
+
+
 function omdbAPI(){
     console.log("It looks like you want to search a movie.");
     // Store all of the arguments after the 3rd in an array
@@ -79,6 +89,7 @@ function omdbAPI(){
     //console.log(queryUrl);
     axios.get(queryUrl).then(
         function(response) {
+            console.log(response.data);
             console.log("Title: " + response.data.Title);
             console.log("Year: " + response.data.Year);
             console.log("IMDB Rating: " + response.data.imdbRating);
