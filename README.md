@@ -27,5 +27,5 @@ In order to access Movie information, the 'movie-this' argument must be passed f
 
 Say we wanted to find out information about Spider-Man: Into the Spider-Verse (an amazing movie, that you should absolutly see). to do this we would type 'node liri.js movie-this Spider-Man: Into the Spider-Verse' into the terminal. The following information will display:
 
-<img width="1065" alt="movie-this" src="https://user-images.githubusercontent.com/14854129/52764202-a5124e00-2fe4-11e9-8de9-9ff54be17e3a.png">
+<img width="1118" alt="movie-this" src="https://user-images.githubusercontent.com/14854129/52764967-cde81280-2fe7-11e9-9eb8-f1a23933b3fd.png">
 
